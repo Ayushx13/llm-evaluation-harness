@@ -20,6 +20,11 @@ class Priority(StrEnum):
     high = "high"
 
 
+# Plain string labels for the eval harness, which works on JSON dicts.
+CATEGORIES = [c.value for c in Category]
+PRIORITIES = [p.value for p in Priority]
+
+
 class TicketOutput(BaseModel):
     category: Category
     priority: Priority
