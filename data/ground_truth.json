@@ -1,0 +1,366 @@
+[
+  {
+    "id": "gt_001",
+    "input": "My card was charged twice for the same order. Please fix this.",
+    "expected": { "category": "payment", "priority": "high" },
+    "label_reason": "Duplicate charge means money has already left the customer. High by the money-lost rule.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_002",
+    "input": "Payment failed three times but the amount was deducted from my account.",
+    "expected": { "category": "payment", "priority": "high" },
+    "label_reason": "Deduction without a successful order is money lost. Payment, not refund, because no refund has been requested or promised yet.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_003",
+    "input": "Which payment methods do you accept for orders above 10000?",
+    "expected": { "category": "payment", "priority": "low" },
+    "label_reason": "Pure information request about payment. Nothing is broken, so low.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_004",
+    "input": "The UPI page keeps timing out when I try to pay at checkout.",
+    "expected": { "category": "payment", "priority": "medium" },
+    "label_reason": "Checkout is blocked but no money has moved. Degraded service, so medium.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_005",
+    "input": "I was charged 2499 but the product page said 1999.",
+    "expected": { "category": "payment", "priority": "high" },
+    "label_reason": "Overcharge is money lost. Payment rather than refund because the complaint is about the charge amount, not about getting money back for a returned item.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_006",
+    "input": "My EMI option is not showing up even though my bank is on your list.",
+    "expected": { "category": "payment", "priority": "medium" },
+    "label_reason": "Payment feature unavailable, purchase blocked, no loss yet.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_007",
+    "input": "You took the money for an order I never confirmed.",
+    "expected": { "category": "payment", "priority": "high" },
+    "label_reason": "Unauthorised deduction. Money lost.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_008",
+    "input": "Can I pay part in wallet balance and part by card?",
+    "expected": { "category": "payment", "priority": "low" },
+    "label_reason": "Information only.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_009",
+    "input": "The invoice shows GST but I gave my company GSTIN at checkout and it is not on the bill.",
+    "expected": { "category": "payment", "priority": "medium" },
+    "label_reason": "Billing document error. Real problem, but no money lost and no product issue. Judged payment because the artefact in dispute is the invoice.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_010",
+    "input": "My package has not arrived and it is nine days late.",
+    "expected": { "category": "delivery", "priority": "high" },
+    "label_reason": "Long overdue shipment. Nine days past is treated as a lost parcel, not a delay, so high.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_011",
+    "input": "Tracking says delivered but nothing came to my address.",
+    "expected": { "category": "delivery", "priority": "high" },
+    "label_reason": "Item marked delivered and missing means the customer paid and received nothing.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_012",
+    "input": "When will my order ship? It still says processing after two days.",
+    "expected": { "category": "delivery", "priority": "medium" },
+    "label_reason": "Delay only, within a normal window, nothing lost.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_013",
+    "input": "Can I change the delivery address for order 88213?",
+    "expected": { "category": "delivery", "priority": "medium" },
+    "label_reason": "Time sensitive request, but nothing is broken or lost. Medium rather than low because acting late makes it impossible.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_014",
+    "input": "What are your delivery charges for Dharwad?",
+    "expected": { "category": "delivery", "priority": "low" },
+    "label_reason": "Information only.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_015",
+    "input": "The courier left my parcel with a neighbour without asking me.",
+    "expected": { "category": "delivery", "priority": "medium" },
+    "label_reason": "Delivery process complaint. The item is recoverable, so not high.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_016",
+    "input": "I got someone else's order in my box.",
+    "expected": { "category": "delivery", "priority": "high" },
+    "label_reason": "Wrong shipment means the customer has paid and not received their item. Delivery rather than product_defect because the item is not faulty, it is the wrong item.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_017",
+    "input": "Delivery agent refused to come to the fourth floor and asked me to come down.",
+    "expected": { "category": "delivery", "priority": "low" },
+    "label_reason": "Service quality complaint. The customer did receive the item.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_018",
+    "input": "My order was split into two shipments and only one arrived.",
+    "expected": { "category": "delivery", "priority": "medium" },
+    "label_reason": "Partial delivery. Second parcel is still in transit, so not yet a loss.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_019",
+    "input": "I cannot log in. It says my password is wrong but I just reset it.",
+    "expected": { "category": "account", "priority": "high" },
+    "label_reason": "Customer is locked out. Blocked access rule makes this high.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_020",
+    "input": "How do I change the email address on my profile?",
+    "expected": { "category": "account", "priority": "low" },
+    "label_reason": "Information request, account area.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_021",
+    "input": "I am not receiving the OTP on my registered number.",
+    "expected": { "category": "account", "priority": "high" },
+    "label_reason": "OTP failure blocks login entirely.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_022",
+    "input": "Someone else logged into my account from Delhi last night.",
+    "expected": { "category": "account", "priority": "high" },
+    "label_reason": "Account compromise. Security issue, always high.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_023",
+    "input": "Please delete my account and all my data.",
+    "expected": { "category": "account", "priority": "medium" },
+    "label_reason": "Account action request. Nothing is broken, but it is not merely informational either.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_024",
+    "input": "My saved addresses disappeared after the app update.",
+    "expected": { "category": "account", "priority": "medium" },
+    "label_reason": "Account data loss but the customer can still shop.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_025",
+    "input": "I want to unsubscribe from your marketing emails.",
+    "expected": { "category": "account", "priority": "low" },
+    "label_reason": "Preference change, no impact on service.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_026",
+    "input": "My loyalty points balance shows zero but I had 4200 points last week.",
+    "expected": { "category": "account", "priority": "medium" },
+    "label_reason": "Account data problem with value attached. Not payment because no currency was charged. Medium because points are recoverable.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_027",
+    "input": "The headphones stopped working after two days.",
+    "expected": { "category": "product_defect", "priority": "high" },
+    "label_reason": "Product unusable. High by the unusable product rule.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_028",
+    "input": "The screen of the tablet arrived cracked.",
+    "expected": { "category": "product_defect", "priority": "high" },
+    "label_reason": "Item damaged and unusable on arrival.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_029",
+    "input": "The charger got very hot and there was a burning smell.",
+    "expected": { "category": "product_defect", "priority": "high" },
+    "label_reason": "Safety hazard. Always high.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_030",
+    "input": "The colour of the shirt is slightly different from the photo.",
+    "expected": { "category": "product_defect", "priority": "low" },
+    "label_reason": "Cosmetic mismatch, product still usable.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_031",
+    "input": "One of the four chair legs was missing from the box.",
+    "expected": { "category": "product_defect", "priority": "high" },
+    "label_reason": "Missing part makes the product unusable. Product_defect rather than delivery because the box arrived, the contents were incomplete.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_032",
+    "input": "Is this blender safe to use with hot liquids?",
+    "expected": { "category": "product_defect", "priority": "low" },
+    "label_reason": "Product question, nothing wrong. Product_defect is the closest category in our taxonomy for product topics.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_033",
+    "input": "The shoes are size 9 on the label but they fit like a size 7.",
+    "expected": { "category": "product_defect", "priority": "medium" },
+    "label_reason": "Sizing error means the item cannot be used, but nothing is broken or unsafe.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_034",
+    "input": "The bottle leaked and ruined the other items in the parcel.",
+    "expected": { "category": "product_defect", "priority": "high" },
+    "label_reason": "Defect caused damage to other goods.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_035",
+    "input": "I returned the jacket two weeks ago and still have not got my money.",
+    "expected": { "category": "refund", "priority": "high" },
+    "label_reason": "Refund overdue. Customer has neither goods nor money.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_036",
+    "input": "How long does a refund usually take to reach my bank?",
+    "expected": { "category": "refund", "priority": "low" },
+    "label_reason": "Information only.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_037",
+    "input": "My refund came as store credit but I want it back on my card.",
+    "expected": { "category": "refund", "priority": "medium" },
+    "label_reason": "Refund was issued, the form is disputed. Money is not fully lost, so medium.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_038",
+    "input": "I cancelled my order within an hour and have not been refunded.",
+    "expected": { "category": "refund", "priority": "high" },
+    "label_reason": "Cancelled order with money still held is money lost.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_039",
+    "input": "Only half of my refund amount was credited.",
+    "expected": { "category": "refund", "priority": "high" },
+    "label_reason": "Partial refund is a real loss.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_040",
+    "input": "Can I return an item after 30 days?",
+    "expected": { "category": "refund", "priority": "low" },
+    "label_reason": "Policy question.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_041",
+    "input": "The return pickup was scheduled three times and nobody came.",
+    "expected": { "category": "refund", "priority": "medium" },
+    "label_reason": "Return process stuck. Judged refund because the customer's goal is the refund, not the courier visit. Genuinely contestable against delivery.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_042",
+    "input": "I was told I would get a refund on the call but nothing in writing.",
+    "expected": { "category": "refund", "priority": "medium" },
+    "label_reason": "Refund promised but unconfirmed. Not yet a loss.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_043",
+    "input": "Do you have a store in Hubli?",
+    "expected": { "category": "other", "priority": "low" },
+    "label_reason": "General company question, fits no support category.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_044",
+    "input": "I want to apply for a job in your logistics team.",
+    "expected": { "category": "other", "priority": "low" },
+    "label_reason": "Not a support ticket at all.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_045",
+    "input": "Just wanted to say the delivery guy was very polite. Thanks.",
+    "expected": { "category": "other", "priority": "low" },
+    "label_reason": "Positive feedback, no action needed. Not delivery because there is no delivery problem to route.",
+    "difficulty": "arguable"
+  },
+  {
+    "id": "gt_046",
+    "input": "Are you hiring interns for summer?",
+    "expected": { "category": "other", "priority": "low" },
+    "label_reason": "Out of support scope.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_047",
+    "input": "Your app crashes on my phone every time I open the home page.",
+    "expected": { "category": "other", "priority": "medium" },
+    "label_reason": "Technical bug with no category of its own. Deliberately kept in other to see whether the model invents a category. Not account because login is not involved.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_048",
+    "input": "Who is the CEO of your company?",
+    "expected": { "category": "other", "priority": "low" },
+    "label_reason": "Company information, not support.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gt_049",
+    "input": "I did not receive the item, and I have already been charged for it.",
+    "expected": { "category": "delivery", "priority": "high" },
+    "label_reason": "Two categories are present. Labelled delivery because the root cause is the missing parcel; the charge is normal and only becomes a payment issue if delivery fails permanently. This case exists to test the model's handling of mixed signals.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_050",
+    "input": "The phone I received is not defective, but it is not the model I ordered.",
+    "expected": { "category": "delivery", "priority": "high" },
+    "label_reason": "Contains an explicit negation of defect. Wrong item shipped is a delivery fulfilment error. Included to test negation handling.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_051",
+    "input": "No money was deducted, but the order still shows as paid in my account.",
+    "expected": { "category": "payment", "priority": "medium" },
+    "label_reason": "Negated loss. Payment status is wrong but nothing was taken, so medium not high. Tests whether the model reacts to the words money and deducted rather than the negation.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "gt_052",
+    "input": "I am not asking for a refund, I just want the missing part sent to me.",
+    "expected": { "category": "product_defect", "priority": "high" },
+    "label_reason": "The word refund appears but is explicitly rejected. Missing part makes the item unusable. Tests keyword attraction against negation.",
+    "difficulty": "hard"
+  }
+]
