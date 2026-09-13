@@ -1,0 +1,294 @@
+{
+  "accuracy": {
+    "n_total": 274,
+    "n_scored": 274,
+    "n_errors": 0,
+    "overall_category_accuracy": 0.9891,
+    "overall_priority_accuracy": 0.7883,
+    "overall_exact_accuracy": 0.781,
+    "normal_accuracy": 1.0,
+    "adversarial_accuracy": 0.9865,
+    "by_input_type": {
+      "contradiction": {
+        "n": 38,
+        "category_accuracy": 0.9737,
+        "priority_accuracy": 0.6842,
+        "exact_accuracy": 0.6579,
+        "mean_confidence": 0.7895
+      },
+      "irrelevant_context": {
+        "n": 52,
+        "category_accuracy": 0.9808,
+        "priority_accuracy": 0.7692,
+        "exact_accuracy": 0.75,
+        "mean_confidence": 0.8769
+      },
+      "negation": {
+        "n": 20,
+        "category_accuracy": 1.0,
+        "priority_accuracy": 0.65,
+        "exact_accuracy": 0.65,
+        "mean_confidence": 0.9475
+      },
+      "normal": {
+        "n": 52,
+        "category_accuracy": 1.0,
+        "priority_accuracy": 0.8077,
+        "exact_accuracy": 0.8077,
+        "mean_confidence": 0.9
+      },
+      "ood": {
+        "n": 8,
+        "category_accuracy": 0.875,
+        "priority_accuracy": 0.875,
+        "exact_accuracy": 0.875,
+        "mean_confidence": 0.3187
+      },
+      "paraphrase": {
+        "n": 52,
+        "category_accuracy": 1.0,
+        "priority_accuracy": 0.8462,
+        "exact_accuracy": 0.8462,
+        "mean_confidence": 0.8798
+      },
+      "typos": {
+        "n": 52,
+        "category_accuracy": 1.0,
+        "priority_accuracy": 0.8462,
+        "exact_accuracy": 0.8462,
+        "mean_confidence": 0.8827
+      }
+    },
+    "per_class": {
+      "payment": {
+        "support": 59,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "delivery": {
+        "support": 64,
+        "precision": 0.9844,
+        "recall": 0.9844,
+        "f1": 0.9844
+      },
+      "account": {
+        "support": 34,
+        "precision": 0.9714,
+        "recall": 1.0,
+        "f1": 0.9855
+      },
+      "product_defect": {
+        "support": 45,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "refund": {
+        "support": 40,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "other": {
+        "support": 32,
+        "precision": 0.9677,
+        "recall": 0.9375,
+        "f1": 0.9524
+      }
+    },
+    "confusion": {
+      "payment": {
+        "payment": 59,
+        "delivery": 0,
+        "account": 0,
+        "product_defect": 0,
+        "refund": 0,
+        "other": 0
+      },
+      "delivery": {
+        "payment": 0,
+        "delivery": 63,
+        "account": 0,
+        "product_defect": 0,
+        "refund": 0,
+        "other": 1
+      },
+      "account": {
+        "payment": 0,
+        "delivery": 0,
+        "account": 34,
+        "product_defect": 0,
+        "refund": 0,
+        "other": 0
+      },
+      "product_defect": {
+        "payment": 0,
+        "delivery": 0,
+        "account": 0,
+        "product_defect": 45,
+        "refund": 0,
+        "other": 0
+      },
+      "refund": {
+        "payment": 0,
+        "delivery": 0,
+        "account": 0,
+        "product_defect": 0,
+        "refund": 40,
+        "other": 0
+      },
+      "other": {
+        "payment": 0,
+        "delivery": 1,
+        "account": 1,
+        "product_defect": 0,
+        "refund": 0,
+        "other": 30
+      }
+    }
+  },
+  "hallucination": {
+    "n_scored": 274,
+    "hallucination_rate": 0.0036,
+    "span_verdicts": {
+      "supported": 273,
+      "fabricated": 1
+    },
+    "by_input_type": {
+      "normal": {
+        "n": 52,
+        "hallucinations": 0,
+        "rate": 0.0
+      },
+      "paraphrase": {
+        "n": 52,
+        "hallucinations": 0,
+        "rate": 0.0
+      },
+      "irrelevant_context": {
+        "n": 52,
+        "hallucinations": 0,
+        "rate": 0.0
+      },
+      "contradiction": {
+        "n": 38,
+        "hallucinations": 0,
+        "rate": 0.0
+      },
+      "negation": {
+        "n": 20,
+        "hallucinations": 0,
+        "rate": 0.0
+      },
+      "typos": {
+        "n": 52,
+        "hallucinations": 0,
+        "rate": 0.0
+      },
+      "ood": {
+        "n": 8,
+        "hallucinations": 1,
+        "rate": 0.125
+      }
+    }
+  },
+  "calibration": {
+    "n_scored": 274,
+    "ece": 0.1294,
+    "mce": 0.9,
+    "mean_overconfidence": -0.1294,
+    "buckets": [
+      {
+        "lo": 0.0,
+        "hi": 0.1,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null,
+        "gap": null
+      },
+      {
+        "lo": 0.1,
+        "hi": 0.2,
+        "n": 2,
+        "mean_confidence": 0.1,
+        "accuracy": 1.0,
+        "gap": -0.9
+      },
+      {
+        "lo": 0.2,
+        "hi": 0.3,
+        "n": 3,
+        "mean_confidence": 0.2167,
+        "accuracy": 1.0,
+        "gap": -0.7833
+      },
+      {
+        "lo": 0.3,
+        "hi": 0.4,
+        "n": 18,
+        "mean_confidence": 0.3,
+        "accuracy": 0.9444,
+        "gap": -0.6444
+      },
+      {
+        "lo": 0.4,
+        "hi": 0.5,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null,
+        "gap": null
+      },
+      {
+        "lo": 0.5,
+        "hi": 0.6,
+        "n": 6,
+        "mean_confidence": 0.5,
+        "accuracy": 1.0,
+        "gap": -0.5
+      },
+      {
+        "lo": 0.6,
+        "hi": 0.7,
+        "n": 2,
+        "mean_confidence": 0.6,
+        "accuracy": 1.0,
+        "gap": -0.4
+      },
+      {
+        "lo": 0.7,
+        "hi": 0.8,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null,
+        "gap": null
+      },
+      {
+        "lo": 0.8,
+        "hi": 0.9,
+        "n": 22,
+        "mean_confidence": 0.8364,
+        "accuracy": 1.0,
+        "gap": -0.1636
+      },
+      {
+        "lo": 0.9,
+        "hi": 1.0,
+        "n": 221,
+        "mean_confidence": 0.9353,
+        "accuracy": 0.991,
+        "gap": -0.0557
+      }
+    ],
+    "high_confidence_slice": {
+      "n": 221,
+      "threshold": 0.9,
+      "accuracy": 0.991
+    },
+    "ood_slice": {
+      "n": 8,
+      "mean_confidence": 0.3187,
+      "accuracy": 0.875
+    }
+  }
+}

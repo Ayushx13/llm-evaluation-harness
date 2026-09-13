@@ -1,0 +1,79 @@
+{
+  "n_failures": 3,
+  "n_clusters": 3,
+  "cross_cutting_tags": {
+    "high_confidence": 2,
+    "predicted_from_distractor": 1,
+    "contradiction_input": 1,
+    "ood_input": 1,
+    "fabricated_evidence": 1
+  },
+  "clusters": [
+    {
+      "cluster": "distractor_capture",
+      "label": "Irrelevant-context capture",
+      "n_failures": 1,
+      "share_of_failures": 0.3333,
+      "mean_confidence": 0.9,
+      "top_confusions": {
+        "other -> account": 1
+      },
+      "hypothesis": "Unrelated chatter that happens to contain domain vocabulary pulls the label toward the chatter's category. The model treats the whole message as one bag of topic evidence and has no notion of which sentence is the request. Longer inputs dilute the real complaint's share of the signal.",
+      "proposed_fix": "Two-stage pipeline: a cheap extraction call returns only the sentences that state a problem or request, then the classifier runs on that reduced text. Log both texts so the reduction step itself can be evaluated.",
+      "examples": [
+        {
+          "test_id": "adv_097",
+          "input": "My password manager keeps logging me out of everything these days. Just wanted to say the delivery guy was very polite. Thanks. Unrelated, but the weather in my city has been terrible all week.",
+          "expected": "other",
+          "predicted": "account",
+          "confidence": 0.9,
+          "evidence_span": "My password manager keeps logging me out of everything these days."
+        }
+      ]
+    },
+    {
+      "cluster": "contradiction_collapse",
+      "label": "Contradiction collapse",
+      "n_failures": 1,
+      "share_of_failures": 0.3333,
+      "mean_confidence": 0.3,
+      "top_confusions": {
+        "delivery -> other": 1
+      },
+      "hypothesis": "Given two conflicting facts the model silently picks the more recent or more concrete one instead of flagging the conflict, and does not lower confidence when it does. It has no way to express 'the ticket disagrees with itself', so an unrepresentable state gets forced into a confident label.",
+      "proposed_fix": "Add a boolean field conflicting_claims to the output schema with a required explanation, and a routing rule that any ticket with conflicting_claims=true goes to a human queue regardless of category.",
+      "examples": [
+        {
+          "test_id": "adv_118",
+          "input": "What are your delivery charges for Dharwad? But the confirmation email says everything was completed successfully.",
+          "expected": "delivery",
+          "predicted": "other",
+          "confidence": 0.3,
+          "evidence_span": "What are your delivery charges for Dharwad?"
+        }
+      ]
+    },
+    {
+      "cluster": "ood_overreach",
+      "label": "Out-of-distribution overreach",
+      "n_failures": 1,
+      "share_of_failures": 0.3333,
+      "mean_confidence": 0.95,
+      "top_confusions": {
+        "other -> delivery": 1
+      },
+      "hypothesis": "Given an input from outside the support domain the model still produces a confident in-domain label. It was given six categories and treats them as exhaustive; 'other' is read as a weak catch-all for odd tickets rather than as a refusal. Confidence is generated as fluent text, not from evidence, so it stays high even with nothing to ground it.",
+      "proposed_fix": "Make refusal explicit: rename the escape hatch to not_a_support_ticket, describe it in the prompt as the correct answer for anything not about an order or account, and enforce a hard rule that an empty evidence_span forces that label with confidence capped at 0.3.",
+      "examples": [
+        {
+          "test_id": "adv_222",
+          "input": "",
+          "expected": "other",
+          "predicted": "delivery",
+          "confidence": 0.95,
+          "evidence_span": "Charged but the item never arrived"
+        }
+      ]
+    }
+  ]
+}

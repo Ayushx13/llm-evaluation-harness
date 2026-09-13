@@ -1,0 +1,263 @@
+{
+  "baseline": "v1",
+  "candidate": "v2",
+  "model": "gemini-3.5-flash-lite",
+  "n_cases": 274,
+  "n_scored_both": 274,
+  "n_unscored": 0,
+  "baseline_category_accuracy": 0.9197,
+  "candidate_category_accuracy": 0.9891,
+  "fixed": 21,
+  "regressed": 2,
+  "still_pass": 250,
+  "still_fail": 1,
+  "net_change": 19,
+  "priority_fixed": 58,
+  "priority_regressed": 10,
+  "regressions_by_input_type": {
+    "contradiction": 1,
+    "ood": 1
+  },
+  "fixes_by_input_type": {
+    "typos": 7,
+    "paraphrase": 5,
+    "normal": 4,
+    "contradiction": 3,
+    "irrelevant_context": 2
+  },
+  "regressions": [
+    {
+      "test_id": "adv_118",
+      "input_type": "contradiction",
+      "input": "What are your delivery charges for Dharwad? But the confirmation email says everything was completed successfully.",
+      "expected": "delivery",
+      "before": "delivery",
+      "after": "other",
+      "confidence_before": 0.85,
+      "confidence_after": 0.3
+    },
+    {
+      "test_id": "adv_222",
+      "input_type": "ood",
+      "input": "",
+      "expected": "other",
+      "before": "other",
+      "after": "delivery",
+      "confidence_before": 0.1,
+      "confidence_after": 0.95
+    }
+  ],
+  "fixes": [
+    {
+      "test_id": "adv_032",
+      "input_type": "paraphrase",
+      "input": "Can this blender be used for hot liquids?",
+      "expected": "product_defect",
+      "before": "other",
+      "after": "product_defect",
+      "confidence_before": 0.95,
+      "confidence_after": 0.9
+    },
+    {
+      "test_id": "adv_045",
+      "input_type": "paraphrase",
+      "input": "I just wanted to mention that the delivery person was extremely polite. Thank you.",
+      "expected": "other",
+      "before": "delivery",
+      "after": "other",
+      "confidence_before": 0.95,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_047",
+      "input_type": "paraphrase",
+      "input": "Whenever I launch the main page on my phone, your app shuts down unexpectedly.",
+      "expected": "other",
+      "before": "product_defect",
+      "after": "other",
+      "confidence_before": 0.9,
+      "confidence_after": 0.9
+    },
+    {
+      "test_id": "adv_050",
+      "input_type": "paraphrase",
+      "input": "The device I got isn't broken, but it's the wrong model compared to what I purchased.",
+      "expected": "delivery",
+      "before": "product_defect",
+      "after": "delivery",
+      "confidence_before": 0.85,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_052",
+      "input_type": "paraphrase",
+      "input": "I am not looking to get my money back, I only need you to mail me the part that didn't arrive.",
+      "expected": "product_defect",
+      "before": "delivery",
+      "after": "product_defect",
+      "confidence_before": 0.9,
+      "confidence_after": 0.85
+    },
+    {
+      "test_id": "adv_093",
+      "input_type": "irrelevant_context",
+      "input": "I have been your customer since 2019 and have never complained before. The return pickup was scheduled three times and nobody came. I am a physics student and my semester exams start next week.",
+      "expected": "refund",
+      "before": "delivery",
+      "after": "refund",
+      "confidence_before": 0.95,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_099",
+      "input_type": "irrelevant_context",
+      "input": "My cousin says your product quality is much better than the competition. Your app crashes on my phone every time I open the home page. My cousin says your product quality is much better than the competition.",
+      "expected": "other",
+      "before": "product_defect",
+      "after": "other",
+      "confidence_before": 0.9,
+      "confidence_after": 0.9
+    },
+    {
+      "test_id": "adv_116",
+      "input_type": "contradiction",
+      "input": "When will my order ship? It still says processing after two days. Though my bank statement shows no such transaction at all.",
+      "expected": "delivery",
+      "before": "payment",
+      "after": "delivery",
+      "confidence_before": 0.9,
+      "confidence_after": 0.85
+    },
+    {
+      "test_id": "adv_137",
+      "input_type": "contradiction",
+      "input": "The return pickup was scheduled three times and nobody came. Though my bank statement shows no such transaction at all.",
+      "expected": "refund",
+      "before": "delivery",
+      "after": "refund",
+      "confidence_before": 0.85,
+      "confidence_after": 0.85
+    },
+    {
+      "test_id": "adv_142",
+      "input_type": "contradiction",
+      "input": "I am not asking for a refund, I just want the missing part sent to me. Actually the tracking page says it was delivered yesterday.",
+      "expected": "product_defect",
+      "before": "delivery",
+      "after": "product_defect",
+      "confidence_before": 0.9,
+      "confidence_after": 0.85
+    },
+    {
+      "test_id": "adv_187",
+      "input_type": "typos",
+      "input": "I want to unsubscribe rom your marketinge mails.",
+      "expected": "account",
+      "before": "other",
+      "after": "account",
+      "confidence_before": 0.95,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_192",
+      "input_type": "typos",
+      "input": "The colour of the shirt is slihtly different from the phoot.",
+      "expected": "product_defect",
+      "before": "other",
+      "after": "product_defect",
+      "confidence_before": 0.85,
+      "confidence_after": 0.9
+    },
+    {
+      "test_id": "adv_194",
+      "input_type": "typos",
+      "input": "Is this blender safe to use wit hot liuqids?",
+      "expected": "product_defect",
+      "before": "other",
+      "after": "product_defect",
+      "confidence_before": 0.9,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_203",
+      "input_type": "typos",
+      "input": "The return picku pwas scheduled trhee times and nbody came.",
+      "expected": "refund",
+      "before": "delivery",
+      "after": "refund",
+      "confidence_before": 0.95,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_207",
+      "input_type": "typos",
+      "input": "Just wanted to say the delivery guy wa sver ypolite. hanks.",
+      "expected": "other",
+      "before": "delivery",
+      "after": "other",
+      "confidence_before": 0.95,
+      "confidence_after": 0.9
+    },
+    {
+      "test_id": "adv_209",
+      "input_type": "typos",
+      "input": "Your app crashes on my phone ever time I open the hoem pgae.",
+      "expected": "other",
+      "before": "product_defect",
+      "after": "other",
+      "confidence_before": 0.9,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "adv_212",
+      "input_type": "typos",
+      "input": "Teh phone I receivedis ont defective, but it is not the model I ordered.",
+      "expected": "delivery",
+      "before": "product_defect",
+      "after": "delivery",
+      "confidence_before": 0.8,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "gt_032",
+      "input_type": "normal",
+      "input": "Is this blender safe to use with hot liquids?",
+      "expected": "product_defect",
+      "before": "other",
+      "after": "product_defect",
+      "confidence_before": 0.95,
+      "confidence_after": 0.9
+    },
+    {
+      "test_id": "gt_041",
+      "input_type": "normal",
+      "input": "The return pickup was scheduled three times and nobody came.",
+      "expected": "refund",
+      "before": "delivery",
+      "after": "refund",
+      "confidence_before": 0.9,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "gt_047",
+      "input_type": "normal",
+      "input": "Your app crashes on my phone every time I open the home page.",
+      "expected": "other",
+      "before": "product_defect",
+      "after": "other",
+      "confidence_before": 0.9,
+      "confidence_after": 0.95
+    },
+    {
+      "test_id": "gt_052",
+      "input_type": "normal",
+      "input": "I am not asking for a refund, I just want the missing part sent to me.",
+      "expected": "product_defect",
+      "before": "delivery",
+      "after": "product_defect",
+      "confidence_before": 0.9,
+      "confidence_after": 0.9
+    }
+  ],
+  "unscored_test_ids": []
+}

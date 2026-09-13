@@ -1,0 +1,216 @@
+{
+  "n_failures": 22,
+  "n_clusters": 5,
+  "cross_cutting_tags": {
+    "high_confidence": 21,
+    "surface_change_input": 12,
+    "clean_input": 4,
+    "contradiction_input": 3,
+    "predicted_from_distractor": 2,
+    "label_from_negated_clause": 1,
+    "irrelevant_context_input": 1
+  },
+  "clusters": [
+    {
+      "cluster": "surface_brittleness",
+      "label": "Surface-form brittleness",
+      "n_failures": 11,
+      "share_of_failures": 0.5,
+      "mean_confidence": 0.9091,
+      "top_confusions": {
+        "product_defect -> other": 3,
+        "other -> delivery": 2,
+        "other -> product_defect": 2,
+        "product_defect -> delivery": 1,
+        "account -> other": 1
+      },
+      "hypothesis": "The label moves when only the wording changes. Character noise and rewording break the token patterns the model relies on, which shows that the decision rests on lexical cues rather than the situation described. Typos also break verbatim span copying, so grounding degrades at the same time.",
+      "proposed_fix": "Add a normalisation pass in front of the classifier (spell correction limited to a domain dictionary) and make evidence_span a character offset pair into the original input rather than free text, so the model cannot silently repair the quote.",
+      "examples": [
+        {
+          "test_id": "adv_032",
+          "input": "Can this blender be used for hot liquids?",
+          "expected": "product_defect",
+          "predicted": "other",
+          "confidence": 0.95,
+          "evidence_span": "Can this blender be used for hot liquids?"
+        },
+        {
+          "test_id": "adv_045",
+          "input": "I just wanted to mention that the delivery person was extremely polite. Thank you.",
+          "expected": "other",
+          "predicted": "delivery",
+          "confidence": 0.95,
+          "evidence_span": "the delivery person was extremely polite"
+        },
+        {
+          "test_id": "adv_047",
+          "input": "Whenever I launch the main page on my phone, your app shuts down unexpectedly.",
+          "expected": "other",
+          "predicted": "product_defect",
+          "confidence": 0.9,
+          "evidence_span": "your app shuts down unexpectedly."
+        },
+        {
+          "test_id": "adv_052",
+          "input": "I am not looking to get my money back, I only need you to mail me the part that didn't arrive.",
+          "expected": "product_defect",
+          "predicted": "delivery",
+          "confidence": 0.9,
+          "evidence_span": "mail me the part that didn't arrive"
+        }
+      ]
+    },
+    {
+      "cluster": "taxonomy_boundary",
+      "label": "Taxonomy boundary confusion",
+      "n_failures": 4,
+      "share_of_failures": 0.1818,
+      "mean_confidence": 0.9125,
+      "top_confusions": {
+        "product_defect -> other": 1,
+        "refund -> delivery": 1,
+        "other -> product_defect": 1,
+        "product_defect -> delivery": 1
+      },
+      "hypothesis": "Failures concentrate on a small number of category pairs where the taxonomy itself is under-specified, for example a charged-but-undelivered order that is both payment and delivery. The model is not wrong so much as forced to choose, and it chooses by surface salience rather than by root cause.",
+      "proposed_fix": "Write explicit tie-break rules into the prompt for the three most confused pairs found in the confusion matrix, stated as root-cause rules, and allow a secondary_category field so a genuinely dual ticket is not scored as a miss.",
+      "examples": [
+        {
+          "test_id": "gt_032",
+          "input": "Is this blender safe to use with hot liquids?",
+          "expected": "product_defect",
+          "predicted": "other",
+          "confidence": 0.95,
+          "evidence_span": "Is this blender safe to use with hot liquids?"
+        },
+        {
+          "test_id": "gt_041",
+          "input": "The return pickup was scheduled three times and nobody came.",
+          "expected": "refund",
+          "predicted": "delivery",
+          "confidence": 0.9,
+          "evidence_span": "The return pickup was scheduled three times and nobody came."
+        },
+        {
+          "test_id": "gt_047",
+          "input": "Your app crashes on my phone every time I open the home page.",
+          "expected": "other",
+          "predicted": "product_defect",
+          "confidence": 0.9,
+          "evidence_span": "Your app crashes on my phone every time I open the home page."
+        },
+        {
+          "test_id": "gt_052",
+          "input": "I am not asking for a refund, I just want the missing part sent to me.",
+          "expected": "product_defect",
+          "predicted": "delivery",
+          "confidence": 0.9,
+          "evidence_span": "missing part sent to me"
+        }
+      ]
+    },
+    {
+      "cluster": "distractor_capture",
+      "label": "Irrelevant-context capture",
+      "n_failures": 3,
+      "share_of_failures": 0.1364,
+      "mean_confidence": 0.9,
+      "top_confusions": {
+        "refund -> delivery": 1,
+        "other -> account": 1,
+        "other -> product_defect": 1
+      },
+      "hypothesis": "Unrelated chatter that happens to contain domain vocabulary pulls the label toward the chatter's category. The model treats the whole message as one bag of topic evidence and has no notion of which sentence is the request. Longer inputs dilute the real complaint's share of the signal.",
+      "proposed_fix": "Two-stage pipeline: a cheap extraction call returns only the sentences that state a problem or request, then the classifier runs on that reduced text. Log both texts so the reduction step itself can be evaluated.",
+      "examples": [
+        {
+          "test_id": "adv_093",
+          "input": "I have been your customer since 2019 and have never complained before. The return pickup was scheduled three times and nobody came. I am a physics student and my semester exams start next week.",
+          "expected": "refund",
+          "predicted": "delivery",
+          "confidence": 0.95,
+          "evidence_span": "The return pickup was scheduled three times and nobody came."
+        },
+        {
+          "test_id": "adv_097",
+          "input": "My password manager keeps logging me out of everything these days. Just wanted to say the delivery guy was very polite. Thanks. Unrelated, but the weather in my city has been terrible all week.",
+          "expected": "other",
+          "predicted": "account",
+          "confidence": 0.85,
+          "evidence_span": "My password manager keeps logging me out of everything these days."
+        },
+        {
+          "test_id": "adv_099",
+          "input": "My cousin says your product quality is much better than the competition. Your app crashes on my phone every time I open the home page. My cousin says your product quality is much better than the competition.",
+          "expected": "other",
+          "predicted": "product_defect",
+          "confidence": 0.9,
+          "evidence_span": "Your app crashes on my phone every time I open the home page."
+        }
+      ]
+    },
+    {
+      "cluster": "contradiction_collapse",
+      "label": "Contradiction collapse",
+      "n_failures": 3,
+      "share_of_failures": 0.1364,
+      "mean_confidence": 0.8833,
+      "top_confusions": {
+        "delivery -> payment": 1,
+        "refund -> delivery": 1,
+        "product_defect -> delivery": 1
+      },
+      "hypothesis": "Given two conflicting facts the model silently picks the more recent or more concrete one instead of flagging the conflict, and does not lower confidence when it does. It has no way to express 'the ticket disagrees with itself', so an unrepresentable state gets forced into a confident label.",
+      "proposed_fix": "Add a boolean field conflicting_claims to the output schema with a required explanation, and a routing rule that any ticket with conflicting_claims=true goes to a human queue regardless of category.",
+      "examples": [
+        {
+          "test_id": "adv_116",
+          "input": "When will my order ship? It still says processing after two days. Though my bank statement shows no such transaction at all.",
+          "expected": "delivery",
+          "predicted": "payment",
+          "confidence": 0.9,
+          "evidence_span": "my bank statement shows no such transaction at all."
+        },
+        {
+          "test_id": "adv_137",
+          "input": "The return pickup was scheduled three times and nobody came. Though my bank statement shows no such transaction at all.",
+          "expected": "refund",
+          "predicted": "delivery",
+          "confidence": 0.85,
+          "evidence_span": "The return pickup was scheduled three times and nobody came."
+        },
+        {
+          "test_id": "adv_142",
+          "input": "I am not asking for a refund, I just want the missing part sent to me. Actually the tracking page says it was delivered yesterday.",
+          "expected": "product_defect",
+          "predicted": "delivery",
+          "confidence": 0.9,
+          "evidence_span": "tracking page says it was delivered yesterday"
+        }
+      ]
+    },
+    {
+      "cluster": "negation_blindness",
+      "label": "Negation blindness",
+      "n_failures": 1,
+      "share_of_failures": 0.0455,
+      "mean_confidence": 0.85,
+      "top_confusions": {
+        "delivery -> product_defect": 1
+      },
+      "hypothesis": "The model routes on keyword presence rather than keyword scope. When a category word appears inside a negated clause ('I am not asking for a refund'), attention still fires on the token and the label follows the word instead of the meaning. The negation cue is a short function word carrying little weight against a strong domain noun.",
+      "proposed_fix": "Add a scope-resolution step before classification: ask the model to first return the single clause that states the actual request, then classify only that clause. Add 8 to 10 negation examples to the prompt as few-shot pairs, each pairing a negated decoy with the correct label.",
+      "examples": [
+        {
+          "test_id": "adv_050",
+          "input": "The device I got isn't broken, but it's the wrong model compared to what I purchased.",
+          "expected": "delivery",
+          "predicted": "product_defect",
+          "confidence": 0.85,
+          "evidence_span": "it's the wrong model compared to what I purchased"
+        }
+      ]
+    }
+  ]
+}
