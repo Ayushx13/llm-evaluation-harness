@@ -120,8 +120,13 @@ A classifier with fixed labels can only make up two things: a label outside the 
 
 - **Pinned model.** The default is `gemini-3.5-flash-lite`, not a `-latest` alias that could change without warning.
 - **Temperature 0 and a fixed seed (42)**, with thinking set to the lowest level the API allows.
-- **Disk cache.** Every response is saved in `.cache/`. The cache key covers the model, prompt text, input, generation settings and output schema. If any of those change, the harness makes a new call. It never reuses a stale answer.
-- **Raw results first.** The runner writes every raw answer to `results/raw_results_<version>.json`, then computes metrics from that file. Fixing a bug in the metrics code does not need new API calls.
+- **Disk cache.** Every response is saved in `.cache/`. The cache key covers the model, prompt text, input, generation settings and output schema. If any of those change, the harness makes a new call. It never reuses a stale answer. `.cache/` is in `.gitignore`, so a fresh clone starts with an empty cache.
+- **Raw results first.** The runner writes every raw answer to `results/raw_results_<version>.json`, then computes metrics from that file.
+
+### What you can reproduce from a fresh clone
+
+- **Every reported number, without an API key.** The raw model answers for both prompt versions are committed in `results/`. `python -m evals.regression` and the report notebook read only those files, so you can check each metric, regression and table against the exact answers the report is based on.
+- **Not the individual model answers.** Running `python -m evals.runner` from a fresh clone calls the API again. Gemini does not guarantee identical output for a fixed seed, so some answers, and therefore some numbers, may differ from the committed results.
 - **Prompts are append-only.** A prompt change adds a new version, so the v1 baseline always means the same thing.
 
 ---
@@ -265,4 +270,4 @@ The full analysis, including five failure clusters with causes and proposed fixe
 - **Rule-based clusters.** Clusters come from keyword and input-type rules. A failure can land in a cluster whose hypothesis does not really explain it.
 - **v2 tuned on the test data.** Its rules were written after reading v1's failures on the same 274 cases. A held-out set is needed to know whether the gains generalise.
 - **LLM-drafted ground truth.** The 52 tickets were drafted with an LLM, then every case was reviewed and corrected by hand by one person.
-- **Determinism is guaranteed by the cache, not measured.** Temperature 0 and a fixed seed are used, but the run-to-run variance of fresh API calls was not measured.
+- **Determinism was not measured.** Temperature 0 and a fixed seed are used, but no fresh, uncached rerun was compared against the committed results, so the run-to-run variance of the API is unknown. The committed raw results make the reported numbers checkable, not re-generatable.
